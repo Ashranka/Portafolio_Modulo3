@@ -69,3 +69,44 @@ SELECT * FROM estudiantes;
 -- Cursos disponibles
 SELECT * FROM cursos;
 
+-- ===============================================================
+-- CONSULTAS CON JOIN
+-- ===============================================================
+
+-- Ver inscripciones con nombres de estudiantes y cursos
+SELECT e.nombre AS estudiante, c.nombre AS curso, i.fecha_inscripcion
+FROM inscripciones i
+JOIN estudiantes e ON i.id_estudiante = e.id_estudiante
+JOIN cursos c ON i.id_curso = c.id_curso;
+
+-- Ver cursos con nombres de sus profesores
+SELECT c.nombre AS curso, p.nombre AS profesor
+FROM cursos c
+JOIN profesores p ON c.id_profesor = p.id_profesor;
+
+-- ===============================================================
+-- CONSULTAS CON GROUP BY
+-- ===============================================================
+
+-- Cantidad de estudiantes inscritos por curso
+SELECT c.nombre AS curso, COUNT(i.id_estudiante) AS cantidad_estudiantes
+FROM cursos c
+JOIN inscripciones i ON c.id_curso = i.id_curso
+GROUP BY c.id_curso;
+
+-- ===============================================================
+-- OPERACIONES DML: UPDATE Y DELETE
+-- ===============================================================
+
+-- Actualizar especialidad de un profesor
+UPDATE profesores
+SET especialidad = 'Ciencias Exactas'
+WHERE id_profesor = 1;
+
+-- Eliminar una inscripción específica
+DELETE FROM inscripciones
+WHERE id_inscripcion = 1;
+
+-- ===============================================================
+-- FIN DEL SCRIPT
+-- ===============================================================
