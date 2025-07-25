@@ -25,5 +25,7 @@ Este proyecto implementa una base de datos relacional en MySQL para gestionar un
 - Prevención automática de inscripciones duplicadas mediante `TRIGGER`.
 - Consultas con `JOIN`, `GROUP BY`, y filtros personalizados.
 
+## 🗺️ Diagrama Entidad-Relación
 
+![Diagrama ER](diagrama/diagrama.png)
 

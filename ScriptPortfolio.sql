@@ -108,5 +108,29 @@ DELETE FROM inscripciones
 WHERE id_inscripcion = 1;
 
 -- ===============================================================
+-- TRIGGERS PARA AUTOMATIZACIÓN
+-- ===============================================================
+
+DELIMITER $$
+
+CREATE TRIGGER before_insert_inscripcion
+BEFORE INSERT ON inscripciones
+FOR EACH ROW
+BEGIN
+    DECLARE ya_inscrito INT;
+    SELECT COUNT(*) INTO ya_inscrito
+    FROM inscripciones
+    WHERE id_estudiante = NEW.id_estudiante AND id_curso = NEW.id_curso;
+
+    IF ya_inscrito > 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'El estudiante ya está inscrito en este curso.';
+    END IF;
+END;
+$$
+
+DELIMITER ;
+
+-- ===============================================================
 -- FIN DEL SCRIPT
 -- ===============================================================
